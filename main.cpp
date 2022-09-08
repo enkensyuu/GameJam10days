@@ -1,4 +1,6 @@
 #include "DxLib.h"
+#include "Player.h"
+#include "PlayerBullet.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "";
@@ -40,6 +42,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
+	// ゲームループで使う変数の宣言
+	Player* player_ = new Player();
+	player_->Initialize();
+
+	PlayerBullet* playerbullet = new PlayerBullet();
+	playerbullet->Initialize();
+
 	int floor = LoadGraph("floor.png");
 	int second = LoadGraph("second.png");
 	int pillar = LoadGraph("pillar.png");
@@ -125,9 +134,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			ScrollX = 7680;
 		}
 
+		player_->Update(keys, oldkeys);
 
 		// 描画処理
-
+		player_->Draw();
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
 		ScreenFlip();

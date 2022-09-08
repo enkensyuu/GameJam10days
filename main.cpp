@@ -73,7 +73,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		PILLAR // 3
 	};
 
-	int CameraSpeed = 10;
+	int CameraSpeed = 2;
 
 	int ScrollX = 0;
 
@@ -118,15 +118,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			}
 		}
 
-		if (ScrollX < 0)
-		{
-			CameraSpeed = -CameraSpeed;
-		}
+		ScrollX = ScrollX + CameraSpeed;
+
 		if (ScrollX > 7680)
 		{
-			CameraSpeed = -CameraSpeed;
+			ScrollX = 7680;
 		}
-		ScrollX = ScrollX + CameraSpeed;
+
 
 		// ï`âÊèàóù
 

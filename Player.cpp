@@ -260,7 +260,7 @@ void Player::Attack(char* keys, char* oldkeys)
 			float c = (Playerradius + enemyradius) * (Playerradius + enemyradius);
 			if (c >= a + b)
 			{
-				HP_ -= 1;
+				HP_X -= 20;
 				aliveFlag = 2;
 
 			}
@@ -293,7 +293,7 @@ void Player::Attack(char* keys, char* oldkeys)
 					if (c >= a + b)
 					{
 						HP -= 1;
-						HP_ += 100;
+						HP_X += 100;
 						enemyFlag = 2;
 						isShot_Right[f] = 0;
 					}
@@ -312,7 +312,7 @@ void Player::Attack(char* keys, char* oldkeys)
 				if (c >= a + b)
 				{
 					HP2 -= 1;
-					HP_ += 100;
+					HP_X += 100;
 					enemy2Flag = 2;
 					isShot_Up[i] = 0;
 				}
@@ -332,7 +332,7 @@ void Player::Attack(char* keys, char* oldkeys)
 					if (c >= a + b)
 					{
 						HP -= 1;
-						HP_ += 1;
+						HP_X += 1;
 						enemyFlag = 2;
 						isShot_Left[f] = 0;
 					}

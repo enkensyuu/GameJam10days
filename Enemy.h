@@ -3,8 +3,9 @@
 #include "DxLib.h"
 #include <time.h>
 #include "System.h"
-#include "Player.h"
 #include <math.h>
+
+class Player;
 
 class Enemy
 {

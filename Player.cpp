@@ -293,7 +293,7 @@ void Player::Attack(char* keys, char* oldkeys)
 					if (c >= a + b)
 					{
 						HP -= 1;
-						HP_ += 1;
+						HP_ += 100;
 						enemyFlag = 2;
 						isShot_Right[f] = 0;
 					}
@@ -312,7 +312,7 @@ void Player::Attack(char* keys, char* oldkeys)
 				if (c >= a + b)
 				{
 					HP2 -= 1;
-					HP_ += 1;
+					HP_ += 100;
 					enemy2Flag = 2;
 					isShot_Up[i] = 0;
 				}
@@ -349,9 +349,15 @@ void Player::Attack(char* keys, char* oldkeys)
 
 	int Player::GetHP_X() { return HP_X; }
 
-	int Player::GetFlag_b() { return bufflag; }
+	int Player::GetHP() { return HP_; }
 
-	int Player::GetFlag_de() { return debufflag; }
+	int Player::GetFlag() { return aliveFlag; }
+
+	int Player::GetBuffFlag() { return bufflag; }
+
+	int Player::GetDeBuffFlag() { return debufflag; }
+
+	float Player::GetRadius() { return Playerradius; }
 
 	void Player::Reset()
 	{

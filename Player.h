@@ -51,9 +51,9 @@ public:
 
 	int GetHP_X();
 
-	int GetFlag_b();
+	int GetBuffFlag();
 
-	int GetFlag_de();
+	int GetDeBuffFlag();
 
 	int GetFlag();
 	
@@ -79,7 +79,7 @@ private:
 	int dodge_timer = 5;
 	int	dodge_interval = 120;
 
-	int Bullet_radius = 10;
+	int Bullet_radius = 16;
 	int aliveFlag = 1;
 	//--------------------
 

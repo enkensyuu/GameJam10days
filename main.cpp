@@ -52,12 +52,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ゲームループで使う変数の宣言
 	System* system_ = new System();
 	system_->Initialize();
+
 	Map* map_ = new Map();
 	map_->Initialize();
+
 	Player* player_ = new Player();
 	player_->Initialize();
+
 	Enemy* enemy_ = new Enemy();
 	enemy_->Initialize();
+
 	Enemy2* enemy2_ = new Enemy2();
 	enemy2_->Initialize(WIN_HEIGHT, WIN_WIDTH);
 
@@ -66,6 +70,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	int timer = 120;
 	int timerFlag = 0;
+
+	int HP;
 
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
@@ -118,7 +124,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0 && timerFlag == 1 ||
 				key & PAD_INPUT_1 && timerFlag == 1)
 			{
-				player_->Reset();
 
 				Scene = 2;
 				timerFlag = 0;
@@ -141,6 +146,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			enemy_->Draw();
 			enemy2_->Draw();
 
+			HP = player_->GetHP_X();
+			if (HP <= 10)
+			{
+				Scene = 4;
+			}
+			
 			break;
 
 

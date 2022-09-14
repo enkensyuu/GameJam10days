@@ -53,11 +53,11 @@ void EnemyBullet::Fire(float x, float y)
 	}
 }
 
-void EnemyBullet::Draw()
+void EnemyBullet::Draw(int bulletHundle)
 {
 	if (fireFlag == 1)
 	{
-		DrawCircle(translationX, translationY, radius, GetColor(255, 0, 0), TRUE);
+		DrawGraph(translationX - radius, translationY - radius, bulletHundle, TRUE);
 	}
 }
 

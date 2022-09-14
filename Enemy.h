@@ -21,7 +21,7 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw(int graphHandle);
 
 	/// <summary>
 	/// リスポン
@@ -35,22 +35,35 @@ public:
 	/// <param name="y"></param>
 	void Move(float x, float y);
 	void Attack(float x, float y);
+	void Attack2(float x, float y);
+	void Hide(float x, float y);
 	void Leave(float x, float y);
 
 	VECTOR GetTranslation() { return translation; }
 	float GetRadius() { return radius; }
 	int GetFlag() { return aliveFlag; }
 	int GetHP() { return HP; }
+
 private:
 	//敵のパラメータ
 	VECTOR translation;
 	float radius;
+	//向きフラグ
+	int seeFlag;
 	//生存フラグ
 	int aliveFlag;
 	//移動フラグ
 	int moveFlag;
+	//ジャンプフラグ
+	int jumpFlag;
+	//隠れるフラグ
+	int hideFlag;
+	//隠れるタイマー
+	float hideTimer;
 	//敵発生タイマー
 	float responTimer;
+	//ジャンプタイマー
+	float jumpTimer;
 	//移動タイマー
 	float moveTimer;
 
@@ -58,10 +71,7 @@ private:
 	float yAdd;
 
 	//体力
-	int HP;
+	int HP = 200;
 
 	System* system_ = new System();
-	Player* player_ = new Player();
 };
-
-

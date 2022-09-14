@@ -39,6 +39,7 @@ void Map::Update()
 
 void Map::Draw(int floor, int second, int pillar)
 {
+	DrawGraph(0, 0, backmap, true);
 #pragma region マップ
 	for (int y = 0; y < mapCountY; y++)
 	{
@@ -58,6 +59,11 @@ void Map::Draw(int floor, int second, int pillar)
 			}
 		}
 	}
-	DrawFormatString(600, 30, GetColor(255, 255, 255), "スクロール座標%d", ScrollX);
+	//DrawFormatString(600, 30, GetColor(255, 255, 255), "スクロール座標%d", ScrollX);
 #pragma endregion
+}
+
+int Map::GetScrollX()
+{
+	return ScrollX;
 }

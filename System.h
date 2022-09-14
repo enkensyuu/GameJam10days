@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "DxLib.h"
 #include "Player.h"
 class System
@@ -13,7 +13,7 @@ private:
 	int BUF[3];
 	int DEBUF[3];
 
-	//ƒQ[ƒ€ŠÔ
+	//Æ’QÂ[Æ’â‚¬Å½Å¾Å Ã”
 	float gameTimer;
 	int gameCount;
 
@@ -29,4 +29,5 @@ public:
 
 	float GetgameTimer();
 
+	void Reset();
 };

@@ -57,7 +57,7 @@ void System::Draw(int X_, int Y_, int HP)
 				}
 			}
 			//デバフ
-			DrawGraph(X_ - 40, Y_ - 40, DEBUF[AnimetionCount], true);
+			DrawGraph(X_ - 15, Y_ - 15, DEBUF[AnimetionCount], true);
 		}
 
 		if (HP < 92.5)
@@ -76,7 +76,7 @@ void System::Draw(int X_, int Y_, int HP)
 				}
 			}
 			//バフ
-			DrawGraph(X_ - 40, Y_ - 40, BUF[AnimetionCount], true);
+			DrawGraph(X_ - 15, Y_ - 15, BUF[AnimetionCount], true);
 		}
 	}
 }
@@ -89,4 +89,16 @@ int System::Getcount()
 float System::GetgameTimer()
 {
 	return gameTimer;
+}
+
+void System::Reset()
+{
+	gameTimer = 0.0f;
+	gameCount = 0;
+
+	HP_X = 200;
+	HP_Y = 48;
+
+	AnimetionCount = 0;
+	AnimetionCount = 0;
 }

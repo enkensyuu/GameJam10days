@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "vector"
 
+
+
 class Player
 {
 public:
@@ -33,6 +35,7 @@ public:
 	///回避
 	///</summary>
 	void Dodge(char* keys, char* oldkeys);
+
 	/// <summary>
 	/// 攻撃
 	/// </summary>
@@ -56,10 +59,12 @@ public:
 	int GetDeBuffFlag();
 
 	int GetFlag();
-	
+
 	void Reset();
 
 	float GetRadius();
+
+	void score_();
 	//void SetBullet() {
 	//	bullet_->Update();
 	//}
@@ -136,4 +141,22 @@ private:
 
 	//タイマー
 	float responTimer = 25.0f;
+
+	// ゲームループで使う変数の宣言
+	int graphHandle[10] = {};
+
+	int score = 0;
+	int num = 0;
+	int eachnum[7] = {};
+	int posX = 800;
+
+	int score_notation;
+
+	int player_[2];
+	int AnimetionTimer = 8;
+	int AnimetionCount = 1;
+	int player_jump;
+
+	int Bullet_;
+	int Bullet_SE;
 };

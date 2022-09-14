@@ -22,7 +22,7 @@ public:
 	void Initialize();
 	void Update();
 	void Fire(float x, float y);
-	void Draw();
+	void Draw(int bulletHundle);
 
 	void Oncollision(float playerX, float playerY, int playerRadius, int playerFlag, int hp);
 };

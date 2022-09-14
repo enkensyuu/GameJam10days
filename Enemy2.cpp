@@ -10,6 +10,10 @@ void Enemy2::Initialize(int Height, int Width)
 	radius = 8;
 	//生存フラグ
 	aliveFlag = 0;
+	//向きフラグ
+	seeFlag = 0; //0が右,1が左
+	//行動カウンタ
+	moveTimer = 100;
 	//リスポンタイマー
 	responTimer = 200;
 	//減速するまでの時間
@@ -43,7 +47,9 @@ void Enemy2::Update(int Height, int Width, float playerX, float playerY, int pla
 			break;
 		case Phase2::Attack:
 			Attack(Height, Width);
-
+			break;
+		case Phase2::Attack2:
+			Attack2(Height, Width, playerX, playerY);
 			break;
 		case Phase2::Leave:
 			Leave(Height, Width);
@@ -54,24 +60,29 @@ void Enemy2::Update(int Height, int Width, float playerX, float playerY, int pla
 
 }
 
-void Enemy2::Draw()
+void Enemy2::Draw(int graphHandle, int bulletHandle)
 {
-	int color = GetColor(255, 0, 0);
-	int color2 = GetColor(255, 255, 0);
 	if (aliveFlag == 0)
 	{
-		DrawCircle(translation.x, translation.y, radius, color, TRUE);
+		DrawGraph(translation.x - radius, translation.y - radius, graphHandle, true);
 	}
 	else if (aliveFlag == 1)
 	{
-		DrawCircle(translation.x, translation.y, radius, color2, TRUE);
+		if (seeFlag == 0)
+		{
+			DrawTurnGraph(translation.x - radius, translation.y - radius, graphHandle, true);
+		}
+		else if (seeFlag == 1)
+		{
+			DrawGraph(translation.x - radius, translation.y - radius, graphHandle, true);
+		}
 	}
-	bullet->Draw();
-	DrawFormatString(0, 60, color, "敵2体目の情報");
+	bullet->Draw(bulletHandle);
+	/*DrawFormatString(0, 60, color, "敵2体目の情報");
 	DrawFormatString(0, 75, color, "リスタイマー[%f]減速タイマー[%f]攻撃タイマー[%f]", responTimer, defSpeedTimer, attackTimer);
 	DrawFormatString(0, 90, color, "フラグ[%d]", aliveFlag);
 	DrawFormatString(0, 105, color, "座標[%f][%f][%f]", translation.x, translation.y, translation.z);
-	DrawFormatString(0, 120, color, "フェーズ[%d]", phase_);
+	DrawFormatString(0, 120, color, "フェーズ[%d]", phase_);*/
 }
 
 void Enemy2::Respon()
@@ -138,10 +149,32 @@ void Enemy2::Attack(int Height, int Width)
 	}
 	if (defSpeedTimer <= 0.0f)
 	{
-		phase_ = Phase2::Leave;
+		phase_ = Phase2::Attack2;
 	}
 	bullet->Fire(translation.x, translation.y);
 	translation.x -= 0.1f;
+}
+
+void Enemy2::Attack2(int Height, int Width, float x, float y)
+{
+	if (moveTimer != 0.0f)
+	{
+		translation.x = x;
+		moveTimer -= 1.0f;
+	}
+	else if (moveTimer <= 0.0f)
+	{
+		translation.y += 8.0f;
+		if (translation.y > Height)
+		{
+			phase_ = Phase2::Leave;
+			translation.y = 96;
+			moveTimer = 100.0f;
+		}
+	}
+
+	DrawFormatString(0, 50, GetColor(255, 255, 255), "座標:[%f][%f]\nタイマー:[%f]\n", translation.x, translation.y, moveTimer);
+
 }
 
 void Enemy2::Leave(int Height, int Width)

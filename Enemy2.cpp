@@ -78,11 +78,6 @@ void Enemy2::Draw(int graphHandle, int bulletHandle)
 		}
 	}
 	bullet->Draw(bulletHandle);
-	/*DrawFormatString(0, 60, color, "敵2体目の情報");
-	DrawFormatString(0, 75, color, "リスタイマー[%f]減速タイマー[%f]攻撃タイマー[%f]", responTimer, defSpeedTimer, attackTimer);
-	DrawFormatString(0, 90, color, "フラグ[%d]", aliveFlag);
-	DrawFormatString(0, 105, color, "座標[%f][%f][%f]", translation.x, translation.y, translation.z);
-	DrawFormatString(0, 120, color, "フェーズ[%d]", phase_);*/
 }
 
 void Enemy2::Respon()
@@ -172,8 +167,6 @@ void Enemy2::Attack2(int Height, int Width, float x, float y)
 			moveTimer = 100.0f;
 		}
 	}
-
-	DrawFormatString(0, 50, GetColor(255, 255, 255), "座標:[%f][%f]\nタイマー:[%f]\n", translation.x, translation.y, moveTimer);
 
 }
 

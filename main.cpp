@@ -58,6 +58,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	int title = LoadGraph("TITLE.png");
 	int manual = LoadGraph("manual.png");
 	int manual2 = LoadGraph("taitle2.png");
+	int manual3 = LoadGraph("taitle3.png");
 	int gameclear = LoadGraph("gameclear.png");
 	int gameover = LoadGraph("gameover.png");
 	int Camel[3];
@@ -128,6 +129,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		switch (Scene)
 		{
 		case 0://タイトル
+			system_->Initialize();
+
+			map_->Initialize();
+
+			player_->Initialize();
+
+			enemy_->Initialize();
+
+			enemy2_->Initialize(WIN_HEIGHT, WIN_WIDTH);
 
 			timer--;
 			if (timer < 0) {
@@ -173,7 +183,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				key & PAD_INPUT_1 && timerFlag == 1)
 			{
 
-				Scene = 3;
+				Scene = 6;
 				timerFlag = 0;
 				timer = 60;
 
@@ -182,7 +192,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		case 3://ゲーム
 			map_->Update();
-			
+
 #pragma region アニメーション管理
 			//--------------敵1-----------------//
 			if (enemyAnimation[0] > 0)
@@ -236,11 +246,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			player_->Collision(enemy_->GetFlag(), enemy_->GetTranslation().x, enemy_->GetTranslation().y, enemy_->GetRadius());
 
 			player_->Oncollision(enemy_->GetTranslation().x, enemy_->GetTranslation().y, enemy_->GetRadius(), enemy_->GetFlag(),
-				enemy2_->translation.x, enemy2_->translation.y, enemy2_->radius, enemy2_->aliveFlag, enemy_->GetHP(), enemy2_->HP);
+				enemy2_->translation.x, enemy2_->translation.y, enemy2_->radius, enemy2_->aliveFlag, enemy_->GetHP(), enemy2_->HP,WIN_WIDTH);
 			enemy_->Update(player_->Gettrans_X(), player_->Gettrans_Y(), WIN_HEIGHT, WIN_WIDTH);
 
 			enemy2_->Update(WIN_HEIGHT, WIN_WIDTH, player_->Gettrans_X(), player_->Gettrans_Y(), player_->GetRadius(), player_->GetFlag(), player_->GetHP_X());
-			
+
 			// 描画処理
 			map_->Draw(floor, second, pillar);
 			player_->Draw();
@@ -271,16 +281,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (timer < 0) {
 				timerFlag = 1;
 			}
-			if (CheckSoundMem(Clear_BGM) == 1) {
-				StopSoundMem(Clear_BGM);
-			}
 			if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0 && timerFlag == 1 ||
 				key & PAD_INPUT_1 && timerFlag == 1)
 			{
 				Scene = 0;
 				timerFlag = 0;
 				timer = 120;
-
+				StopSoundMem(Clear_BGM);
 			}
 
 			break;
@@ -297,10 +304,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				Scene = 0;
 				timerFlag = 0;
 				timer = 120;
-
-			}
-			if (CheckSoundMem(Over_BGM) == 1) {
 				StopSoundMem(Over_BGM);
+			}
+			break;
+		case 6:
+			timer--;
+			if (timer < 0) {
+				timerFlag = 1;
+			}
+
+			if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0 && timerFlag == 1 ||
+				key & PAD_INPUT_1 && timerFlag == 1)
+			{
+
+				Scene = 3;
+				timerFlag = 0;
+				timer = 60;
+
 			}
 			break;
 		}
@@ -344,9 +364,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				}
 			}
 
-			DrawGraph(WIN_WIDTH / 2, 680, Camel[AnimetionCount], true);
 			player_->Draw();
 			system_->Draw(player_->Gettrans_X(), player_->Gettrans_Y(), player_->GetHP_X());
+			DrawGraph(79, 680, Camel[AnimetionCount], true);
 
 
 
@@ -354,6 +374,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		case 4://ゲームクリア
 			DrawGraph(0, 0, gameclear, true);
+			for (int i = 0; i < 7; i++)
+			{
+				DrawGraph(player_->posX + 32 * i, 0, player_->graphHandle[player_->eachnum[i]], true);
+			}
+			DrawGraph(550, 0, player_->score_notation, true);
 			if (CheckSoundMem(Clear_BGM) == 0) {
 				PlaySoundMem(Clear_BGM, DX_PLAYTYPE_BACK, true);
 			}
@@ -365,8 +390,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			}
 			DrawGraph(0, 0, gameover, true);
 			break;
+		case 6:// 操作説明3
+			DrawGraph(0, 0, manual3, true);
+			break;
 		}
-
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

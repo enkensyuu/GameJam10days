@@ -33,7 +33,6 @@ void System::Update(int HP)
 
 	}
 
-	DrawFormatString(0, 200, GetColor(255, 255, 255), "%f", gameTimer);
 }
 
 void System::Draw(int X_, int Y_, int HP)

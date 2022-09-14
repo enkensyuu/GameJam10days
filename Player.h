@@ -44,7 +44,7 @@ public:
 	void Collision(int enemyFlag, float enemyX, float enemyY, float enemyradius);
 
 	void Oncollision(float enemyX, float enemyY, int enemyRadius, int enemyFlag, float enemy2X, float enemy2Y, int enemy2Radius, int enemy2Flag,
-		int HP, int HP2);
+		int HP, int HP2,int width);
 public:
 	int Gettrans_X();
 
@@ -72,6 +72,17 @@ public:
 	VECTOR X;
 
 	Map* map = new Map();
+
+	int score_notation;
+
+	int score = 0;
+
+	int eachnum[7] = {};
+
+	int posX = 800;
+
+	// ゲームループで使う変数の宣言
+	int graphHandle[10] = {};
 private:
 
 	VECTOR translation;
@@ -142,15 +153,14 @@ private:
 	//タイマー
 	float responTimer = 25.0f;
 
-	// ゲームループで使う変数の宣言
-	int graphHandle[10] = {};
+	
 
-	int score = 0;
+	
 	int num = 0;
-	int eachnum[7] = {};
-	int posX = 800;
+	
+	
 
-	int score_notation;
+	
 
 	int player_[2];
 	int AnimetionTimer = 8;
